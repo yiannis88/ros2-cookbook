@@ -18,7 +18,7 @@ from rclpy.node import Node
 
 
 class HelloNode(Node):
-    """The Hello Node class that inherits from rclpy.node.Node.
+    """The HelloNode class that inherits from rclpy.node.Node.
     Initialises with a counter and creates a timer that triggers
     once per second.
     """

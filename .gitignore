@@ -1,0 +1,65 @@
+###############
+##   Build   ##
+###############
+build/
+install/
+log/
+
+
+###############
+##  Colcon   ##
+###############
+.ament/
+.colcon/
+
+
+###############
+##   Python  ##
+###############
+__pycache__/
+*.py[codz]
+*$py.class
+
+
+###############
+##   C/C++   ##
+###############
+# Compiled object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries
+*.a
+*.lib
+*.la
+*.lo
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+###############
+## OS/EDITOR ##
+###############
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+###############
+##   ROS2    ##
+###############
+*.log
+*.bag

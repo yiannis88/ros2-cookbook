@@ -12,6 +12,9 @@ find_package(rclcpp REQUIRED)
 add_executable(hello_c_params src/hello_params.cpp)
 ament_target_dependencies(hello_c_params rclcpp)
 
+add_executable(hello_c_param src/hello_param.cpp)
+ament_target_dependencies(hello_c_param rclcpp)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -26,6 +29,7 @@ endif()
 
 install(TARGETS
   hello_c_params
+  hello_c_param
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "hello_params = hello_params_py.hello_params:main"
+            "hello_params = hello_params_py.hello_params:main",
+            "hello_param = hello_params_py.hello_param:main"
         ],
     },
 )

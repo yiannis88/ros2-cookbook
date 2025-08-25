@@ -2,7 +2,7 @@
  *  A minimal ROS2 cpp node that subscribes to a topic.
  *
  *  Basic structure for ROS2 node:
- *  - Initialise rclpy
+ *  - Initialise rclcpp
  *  - Create a node
  *  - Create the subscriber
  *  - Keep it alive with spin
@@ -18,7 +18,7 @@
 #include "example_interfaces/msg/string.hpp"
 
 
-static const rmw_qos_profile_t rmw_qos_profile_latch =
+static const rmw_qos_profile_t rmw_qos_profile =
 {
     RMW_QOS_POLICY_HISTORY_KEEP_LAST,
     1,
@@ -37,7 +37,7 @@ class HelloSubscriber : public rclcpp::Node
     public:
         HelloSubscriber() : Node("hello_c_subscriber")
         {
-            auto qos = rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_latch), rmw_qos_profile_latch);
+            auto qos = rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile), rmw_qos_profile);
             m_subscriber = this->create_subscription<example_interfaces::msg::String>("hello_world",
                                                                                       qos,
                                                                                       std::bind(&HelloSubscriber::topicCallback, this, std::placeholders::_1));

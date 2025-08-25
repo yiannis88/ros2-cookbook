@@ -1,4 +1,4 @@
-# hello_pubsub
+# hello_pubsub_py
 A minimal ROS2 python publisher and subscriber. The message published is an `example_interfaces/msg/String`, hence the dependency on the `example_interfaces`.
 
 **BEST_EFFORT** and **VOLATILE** have been selected for the QOS_PROFILE, as the node keeps publishing at fixed intervals and losing messages it's fine. See [qos_profile](https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Quality-of-Service-Settings.html)

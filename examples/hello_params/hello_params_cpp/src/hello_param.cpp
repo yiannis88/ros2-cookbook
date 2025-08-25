@@ -1,5 +1,5 @@
 /**
- *  A minimal ROS2 cpp node that allos to update param on the fly.
+ *  A minimal ROS2 cpp node that gets/sets a param.
  *
  *  Basic structure for ROS2 node:
  *  - Initialise rclcpp
@@ -38,7 +38,6 @@ class HelloParams : public rclcpp::Node
             this->declare_parameter("hello_msg", "Orcheas", hello_msg_descriptor);
 
             m_timer_interval = this->get_parameter("timer_interval").as_double();
-            m_hello_msg = this->get_parameter("hello_msg").as_string();
 
             m_param_cb = this->add_on_set_parameters_callback(std::bind(&HelloParams::paramCb, this, std::placeholders::_1));
 
@@ -50,7 +49,10 @@ class HelloParams : public rclcpp::Node
     private:
         void printMessage()
         {
-            RCLCPP_INFO(this->get_logger(), "Hello from: %s (interval=%.1f)", m_hello_msg.c_str(), m_timer_interval);
+            std::string my_str_param = this->get_parameter("hello_msg").as_string();
+            RCLCPP_INFO(this->get_logger(), "Hello from: %s (interval=%.1f)", my_str_param.c_str(), m_timer_interval);
+            std::vector<rclcpp::Parameter> all_new_parameters{rclcpp::Parameter("hello_msg", "nobody")};
+            this->set_parameters(all_new_parameters);
         }
         rcl_interfaces::msg::SetParametersResult paramCb(const std::vector<rclcpp::Parameter> &params)
         {
@@ -63,9 +65,6 @@ class HelloParams : public rclcpp::Node
                     m_timer = this->create_wall_timer(std::chrono::duration<double>(m_timer_interval),
                                                       std::bind(&HelloParams::printMessage, this));
                 }
-                else if (param.get_name() == "hello_msg"){
-                    m_hello_msg = param.as_string();
-                }
             }
             rcl_interfaces::msg::SetParametersResult result;
             result.successful = true;
@@ -73,7 +72,6 @@ class HelloParams : public rclcpp::Node
             return result;
         }
         rclcpp::TimerBase::SharedPtr m_timer;
-        std::string m_hello_msg;
         double m_timer_interval;
         OnSetParametersCallbackHandle::SharedPtr m_param_cb;
 };

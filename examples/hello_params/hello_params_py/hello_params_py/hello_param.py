@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-    A minimal ROS2 python node that allows to declare and modify params.
+    A minimal ROS2 python node to get/set params (using the self.set_parameters)
 
     Basic structure for ROS2 node publisher:
     - Initialise rclpy
@@ -38,30 +38,26 @@ class HelloParams(Node):
                                                                                 additional_constraints='Range [1.0, 13.0] Step 2.0')),
                                     ('hello_msg', 'Orcheas', ParameterDescriptor(description='The msg name to print'))
                                 ])
-        # parse the param values
-        self.timer_interval = self.get_parameter('timer_interval').value
-        self.hello_msg = self.get_parameter('hello_msg').value
+
         # add a callback to update on the fly
         self.add_on_set_parameters_callback(self.parameter_callback)
-        self.timer = self.create_timer(timer_period_sec=self.timer_interval, callback=self.print_message)
+        self.timer = self.create_timer(timer_period_sec=self.get_parameter('timer_interval').value, callback=self.print_message)
 
 
     def parameter_callback(self, params: list[Parameter]) -> SetParametersResult:
         """Callback for setting params on the fly"""
         for param in params:
             if param.name == 'timer_interval':
-                self.timer_interval = param.value
                 if self.timer:
                     self.timer.cancel()
-                self.timer = self.create_timer(timer_period_sec=self.timer_interval, callback=self.print_message)
-            elif param.name == 'hello_msg':
-                self.hello_msg = param.value
+                self.timer = self.create_timer(timer_period_sec=param.value, callback=self.print_message)
         return SetParametersResult(successful=True)
 
 
     def print_message(self):
         """Print a message based on the timer"""
-        self.get_logger().info(f'Hello from {self.hello_msg} (interval={self.timer_interval})')
+        self.get_logger().info(f'Hello from {self.get_parameter("hello_msg").value} (interval={self.get_parameter("timer_interval").value})')
+        self.set_parameters([Parameter('hello_msg', Parameter.Type.STRING, 'zeus')])
 
 
 def main(args=None) -> None:

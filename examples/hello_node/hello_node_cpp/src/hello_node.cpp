@@ -2,7 +2,7 @@
  *  A minimal ROS2 cpp node that logs a message every second.
  *
  *  Basic structure for ROS2 node:
- *  - Initialise rclpy
+ *  - Initialise rclcpp
  *  - Create a node
  *  - Keep it alive with spin
  *  - Shutdown

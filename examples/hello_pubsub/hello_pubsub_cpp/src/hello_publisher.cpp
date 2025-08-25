@@ -2,7 +2,7 @@
  *  A minimal ROS2 cpp node that publishes a message every second.
  *
  *  Basic structure for ROS2 node:
- *  - Initialise rclpy
+ *  - Initialise rclcpp
  *  - Create a node
  *  - Create the publisher
  *  - Create a timer to publish at specific intervals
@@ -23,7 +23,7 @@
 #include "example_interfaces/msg/string.hpp"
 
 
-static const rmw_qos_profile_t rmw_qos_profile_latch =
+static const rmw_qos_profile_t rmw_qos_profile =
 {
     RMW_QOS_POLICY_HISTORY_KEEP_LAST,
     1,
@@ -42,7 +42,7 @@ class HelloPublisher : public rclcpp::Node
     public:
         HelloPublisher() : Node("hello_c_publisher")
         {
-            auto qos = rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_latch), rmw_qos_profile_latch);
+            auto qos = rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile), rmw_qos_profile);
             m_timer = this->create_wall_timer(std::chrono::seconds(1),
                                               std::bind(&HelloPublisher::timerCallback, this));
             m_publisher = this->create_publisher<example_interfaces::msg::String>("hello_world", qos);

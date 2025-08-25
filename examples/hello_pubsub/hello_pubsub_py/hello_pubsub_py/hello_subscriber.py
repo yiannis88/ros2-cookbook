@@ -46,7 +46,11 @@ class HelloSubscriber(Node):
 
 
     def hello_world_callback(self, msg: String) -> None:
-        """The callback of the hello_world topic"""
+        """The callback of the hello_world topic
+
+        Keyword arguments:
+        msg (String) -- The ROS2 message
+        """
         self.get_logger().info(f'Received message: {msg.data}')
 
 

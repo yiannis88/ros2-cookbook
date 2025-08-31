@@ -2,7 +2,7 @@
 A minimal ROS2 python params example. Two parameters are defined in the node, allowing the user to change their values on the fly.
 
 * Package created with `ros2 pkg create hello_params_py --build-type ament_python --dependencies rclpy`.
-* The main script is `hello_params_py/hello_params.py`.
+* The main script is `hello_params_py/hello_params.py` and `hello_params_py/hello_param.py` (using the `set_parameters()`).
 * Update the `entry_points >> console_scripts` in the `setup.py` file with
 ```
 "hello_params = hello_params_py.hello_params:main"

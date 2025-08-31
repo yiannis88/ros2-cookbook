@@ -2,7 +2,7 @@
 A minimal ROS2 cpp params example. Two parameters are defined in the node, allowing the user to change their values on the fly.
 
 * Package created with `ros2 pkg create hello_params_cpp --build-type ament_cmake --dependencies rclcpp`.
-* The main script is `src/hello_params.cpp`.
+* The main script is `src/hello_params.cpp` and `src/hello_param.cpp` (using the `set_parameters()`).
 * Update the `CMakeLists.txt` to create the executable with its dependencies with
 ```
 add_executable(hello_c_params src/hello_params.cpp)
